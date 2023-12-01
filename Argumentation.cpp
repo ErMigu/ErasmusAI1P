@@ -138,7 +138,7 @@ void Argumentation::isCF(){
 
 
 /**PRINT FOR EX1**/
-void Argumentation::printcfSets(){
+void Argumentation::printCfSets(){
     for (const std::vector<std::string>& cfset : cfsets) {
         std::cout << "{ ";
         for (const std::string& argument : cfset) {
@@ -191,7 +191,7 @@ void Argumentation::ej2() {
 
 
 /**PRINT FOR EX2**/
-void Argumentation::printadmissibleSets(){
+void Argumentation::printAdmissibleSets(){
     for (const std::vector<std::string>& cfset : admissiblesets) {
         std::cout << "{ ";
         for (const std::string& argument : cfset) {
@@ -202,11 +202,90 @@ void Argumentation::printadmissibleSets(){
 }
 
 
-void Argumentation::ej3() {
-
+/**ALL "STABLE SETS"**/
+void Argumentation::ej3() { //son los q a demas, S ataca a cada elemento que no esta en S
+    for (int i = 0; i < admissiblesets.size(); ++i) { //para cada set
+        bool cumple= true;
+        for (int j = 0; j < arg.size(); ++j) { //para cada argumento total
+            bool inSet=false;
+            for (int k = 0; k < admissiblesets[i].size(); ++k) { //para cada argumento del set
+                if(admissiblesets[i][k]==arg[j]){
+                    inSet=true;
+                    break;
+                }
+            }
+            if(inSet==false){ //si se mete aqui hay que ver si es atacado por alguien del set
+                bool atacado=false;
+                for (int k = 0; k < att.size(); ++k) {
+                    if(arg[j]==att[k][1]){
+                        for (int l = 0; l < admissiblesets[i].size(); ++l) {
+                            if(admissiblesets[i][l]==att[k][0]){
+                                atacado=true;
+                                break;
+                            }
+                        }
+                        if(atacado==true){
+                            break;
+                        }
+                    }
+                }
+                if(atacado==false){
+                    cumple= false;
+                    break;
+                }
+            }
+        }
+        if(cumple==true){
+            stablesets.push_back(admissiblesets[i]);
+        }
+    }
 }
 
 
+/**PRINT FOR EX3**/
+void Argumentation::printStableSets(){
+    for (const std::vector<std::string>& cfset : stablesets) {
+        std::cout << "{ ";
+        for (const std::string& argument : cfset) {
+            std::cout << argument << " ";
+        }
+        std::cout << "}" << std::endl;
+    }
+}
+
+
+/**ALL "PREFERRED SETS"**/
 void Argumentation::ej4() {
+    for (std::vector<std::string>& admisibleSet : admissiblesets) {
+        std::sort(admisibleSet.begin(), admisibleSet.end());
+    }
 
+    for (int i = 0; i < admissiblesets.size(); ++i) {
+        bool isPreferred = true;
+
+        for (int j = 0; j < admissiblesets.size(); ++j) {
+            if (i != j && std::includes(admissiblesets[i].begin(), admissiblesets[i].end(), admissiblesets[j].begin(), admissiblesets[j].end())) {
+                isPreferred = false;
+                break;
+            }
+        }
+
+        if (isPreferred) {
+            preferredsets.push_back(admissiblesets[i]);
+        }
+    }
 }
+
+
+/**PRINT FOR EX4**/
+void Argumentation::printPreferredSets() {
+    for (const std::vector<std::string>& cfset : preferredsets) {
+        std::cout << "{ ";
+        for (const std::string& argument : cfset) {
+            std::cout << argument << " ";
+        }
+        std::cout << "}" << std::endl;
+    }
+}
+
+

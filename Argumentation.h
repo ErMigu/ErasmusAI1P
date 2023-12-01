@@ -8,6 +8,7 @@
 #include <vector>
 #include <cstring>
 #include "stdexcept"
+#include <algorithm>
 
 class Argumentation {
 private:
@@ -20,6 +21,8 @@ private:
     std::vector<bool> used;
     std::vector<std::vector<std::string>> cfsets;
     std::vector<std::vector<std::string>> admissiblesets;
+    std::vector<std::vector<std::string>> stablesets;
+    std::vector<std::vector<std::string>> preferredsets;
 
 public:
     Argumentation();
@@ -29,14 +32,16 @@ public:
 
     void ej1();
     void isCF();
-    void printcfSets();
+    void printCfSets();
 
     void ej2();
-    void printadmissibleSets();
+    void printAdmissibleSets();
 
     void ej3();
-    void ej4();
+    void printStableSets();
 
+    void ej4();
+    void printPreferredSets();
 };
 
 
