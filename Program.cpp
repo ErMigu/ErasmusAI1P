@@ -22,7 +22,6 @@ void Program::readArg(int argc, char* argv[]){
             ruleT.push_back(argument);
         }
     }
-    std::cout << "---DONEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE-" << std::endl;
 
     for (int i = 0; i < rules.size(); ++i) { //for each unknown rule
         std::vector<Atom> aux = rules[i].getAllAtoms();
@@ -41,7 +40,6 @@ void Program::readArg(int argc, char* argv[]){
             }
         }
     }
-    std::cout << "---DONEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE-" << std::endl;
 }
 
 

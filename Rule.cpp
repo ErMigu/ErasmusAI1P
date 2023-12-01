@@ -6,10 +6,6 @@
 
 Rule::Rule(std::vector<std::string> ruleText){
     bool isBody=false;
-    for (const std::string& rule : ruleText) {
-        std::cout << rule << std::endl;
-    }
-    std::cout << "------------------" << std::endl;
     for (int i = 0; i < ruleText.size(); ++i) {
         if(isBody==false){ //head part
             if(ruleText[i]==":-"){ //to end the head
@@ -45,7 +41,6 @@ Rule::Rule(std::vector<std::string> ruleText){
             }
         }
     }
-    std::cout << "------DAWFDSAEG-" << std::endl;
 }
 
 

@@ -11,9 +11,15 @@
 
 class Argumentation {
 private:
+    //Common
     std::vector<std::string> arg;
     std::vector<std::vector<std::string>> att;
     int typeOfProblem=0;
+
+    //To work with
+    std::vector<bool> used;
+    std::vector<std::vector<std::string>> cfsets;
+    std::vector<std::vector<std::string>> admissiblesets;
 
 public:
     Argumentation();
@@ -22,7 +28,12 @@ public:
     void printArg();
 
     void ej1();
+    void isCF();
+    void printcfSets();
+
     void ej2();
+    void printadmissibleSets();
+
     void ej3();
     void ej4();
 
