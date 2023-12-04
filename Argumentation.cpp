@@ -13,8 +13,7 @@ Argumentation::Argumentation() {}
 
 /**READER OF ARGUMENTS**/
 void Argumentation::readArg(int argc, char* argv[]){
-    typeOfProblem=stoi(std::string(argv[1]));
-    for (int i = 2; i < argc; ++i) {
+    for (int i = 1; i < argc; ++i) {
         std::string argu(argv[i]);
         if (argu.substr(0,3) == "arg") {
             arg.push_back(argu.substr(4, argu.length() - 5));
@@ -255,7 +254,7 @@ void Argumentation::printStableSets(){
 
 
 /**ALL "PREFERRED SETS"**/
-void Argumentation::ej4() {
+void Argumentation::ej5() {
     for (std::vector<std::string>& admisibleSet : admissiblesets) {
         std::sort(admisibleSet.begin(), admisibleSet.end());
     }
@@ -264,7 +263,7 @@ void Argumentation::ej4() {
         bool isPreferred = true;
 
         for (int j = 0; j < admissiblesets.size(); ++j) {
-            if (i != j && std::includes(admissiblesets[i].begin(), admissiblesets[i].end(), admissiblesets[j].begin(), admissiblesets[j].end())) {
+            if (i != j && std::includes(admissiblesets[j].begin(), admissiblesets[j].end(), admissiblesets[i].begin(), admissiblesets[i].end())) {
                 isPreferred = false;
                 break;
             }

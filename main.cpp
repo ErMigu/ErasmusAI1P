@@ -1,7 +1,6 @@
 #include <iostream>
 #include <cstdlib>
 #include "Argumentation.h"
-#include "Program.h"
 
 /**ARG PRINT**/
 void printArg(int argc, char* argv[]){
@@ -16,31 +15,28 @@ void printArg(int argc, char* argv[]){
 
 /**USING RULES**/
 //-> Argumentation sintax -> NUMERODEPROBLEMA arg(a) arg(b) arg(..) att(a,b) att(b,...)
-//./erasmusAI 1 "arg(A1)" "arg(A2)" "arg(A3)" "arg(A4)" "att(A1,A2)" "att(A2,A1)" "att(A1,A4)"
-
-//-> Semantics sintax -> 5 x :- -y. y. z :- x
-//./erasmusAI 5 a :- -b. b. c :- -a.
-
+//./erasmusAI 5 "arg(A1)" "arg(A2)" "arg(A3)" "arg(A4)" "att(A1,A2)" "att(A2,A1)" "att(A1,A4)"
+//PONER SIEMPRE EL NUMERO 5, se hacen todos en cascada
 
 int main(int argc, char* argv[]) {
     printArg(argc, argv);
 
     Argumentation myArg;
-    Program myProgram("P1");
+    myArg.readArg(argc, argv);
+    myArg.printArg();
 
-    if(stoi(std::string(argv[1]))>5 or stoi(std::string(argv[1]))<1){
-        throw std::invalid_argument("nie");
-    }else{
-        if(stoi(std::string(argv[1]))==5){
-            myProgram.readArg(argc, argv);
-            myProgram.printArg();
-        }else{
-            myArg.readArg(argc, argv);
-            myArg.printArg();
-        }
-    }
-
-    myProgram.ej5();
+    myArg.ej1(); //fill the ConflictFree
+    myArg.printCfSets();
+    std::cout<<std::endl;std::cout<<std::endl;
+    myArg.ej2(); //fill the Admissible
+    myArg.printAdmissibleSets();
+    std::cout<<std::endl;std::cout<<std::endl;
+    myArg.ej3(); //fill the Stable
+    myArg.printStableSets();
+    std::cout<<std::endl;std::cout<<std::endl;
+    myArg.ej5(); //fill the Preferred
+    myArg.printPreferredSets();
+    std::cout<<std::endl;std::cout<<std::endl;
 
     return 0;
 }

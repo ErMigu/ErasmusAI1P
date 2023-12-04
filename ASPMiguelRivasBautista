@@ -1,66 +1,86 @@
 1-Conflict-Free Sets (Find sets of arguments where no argument attacks another within the set)
 %INPUTS
-arg(a). arg(b).
-att(a, b). att(b, a).
+arg(a). arg(b). arg(c). arg(d).
+att(a, b). att(b, a). att(a,d).
 
 %GEN SETS
 { in(X) : arg(X) }.
 
 %FOR EVERY X,Y IN THE ARG
-in(X) :- not att(X, Y), not att(Y, X), in(Y).
+:- free(X).
+free(X):- att(X,Y), in(X), in(Y).
 
-
+//---------------------------------
 
 2-Admissible Sets (Find conflict-free sets where each argument is defended against attackers)
 %INPUTS
-arg(a). arg(b).
-att(a, b). att(b, a).
+arg(a). arg(b). arg(c). arg(d).
+att(a, b). att(b, a). att(a,d).
 
 %GEN SETS
 { in(X) : arg(X) }.
 
 %FOR EVERY X,Y IN THE ARG
-in(X) :- not att(X, Y), not att(Y, X), in(Y).
+:- free(X).
+free(X):- att(X,Y), in(X), in(Y).
 
 %EVERY ATT IS DEFENDED BY SOMEONE OF THE SET
-in(X) :- att(Z,X), att(Y,Z), in(Y).
+:- in(X), att(Y, X), not def(X, Y).
+def(X, Y) :- in(Z), att(Z,Y), arg(X).
 
-
+//---------------------------------
 
 3-Stable Extensions (Find admissible sets that attack every argument not in the set)
 %INPUTS
-arg(a). arg(b).
-att(a, b). att(b, a).
+arg(a). arg(b). arg(c). arg(d).
+att(a, b). att(b, a). att(a,d).
 
 %GEN SETS
 { in(X) : arg(X) }.
 
 %FOR EVERY X,Y IN THE ARG
-in(X) :- not att(X, Y), not att(Y, X), in(Y).
+:- free(X).
+free(X):- att(X,Y), in(X), in(Y).
 
 %EVERY ATT IS DEFENDED BY SOMEONE OF THE SET
-in(X) :- att(Z,X), att(Y,Z), in(Y).
+:- in(X), att(Y, X), not def(X, Y).
+def(X, Y) :- in(Z), att(Z,Y), arg(X).
 
 %ATT ALL ARGUMENTS NOT IN ARE ATT BY SOMEONE IN
-not in(X) :- att(Y,X), in(Y).
+:- arg(X), not in(X), not attNS(X).
+attNS(X) :- arg(X), not in(X), in(Y), att(Y, X).
 
-
+//---------------------------------
 
 4-Preferred Extensions (Find maximal admissible sets)
 %INPUTS
-arg(a). arg(b).
-att(a, b). att(b, a).
+arg(a). arg(b). arg(c). arg(d).
+att(a, b). att(b, a). att(a,d).
 
 %GEN SETS
 { in(X) : arg(X) }.
 
 %FOR EVERY X,Y IN THE ARG
-in(X) :- freeConf(X)
-freeConf(X) :- not att(X, Y), not att(Y, X), in(Y).
+:- free(X).
+free(X):- att(X,Y), in(X), in(Y).
 
 %EVERY ATT IS DEFENDED BY SOMEONE OF THE SET
-in(X) :- def(X).
-def(X) :- att(Z,X), att(Y,Z), in(Y).
+:- in(X), att(Y, X), not def(X, Y).
+def(X, Y) :- in(Z), att(Z,Y), arg(X).
 
-%THERE IS NOTHING LEFT NOT IN SOLUTION SET
-:- not in(X), attBySet(X), def(X)
+%THERE IS NOTHING LEFT NOT IN SOLUTION SET es decir no hay elementos que puedan entrar y no hayan entrado
+:- not in(X), free(X), def(X,Y), arg(Y), arg(X).
+
+//---------------------------------
+
+PROPUESTA PARA LA FREECONFLICT
+%in(X) :- not att(X, Y), not att(Y, X), in(Y).
+
+PROPUESTA PARA LAS DEFENSAS
+%in(X) :- att(Z,X), att(Y,Z), in(Y).
+
+PROPUESTA ATT A LOS QUE NO ESTAN EN EL SET POR UNO DEL SET MINIMO
+%not in(X) :- att(Y,X), in(Y).
+
+PROPUESTA MAXIMAL
+:- not in(X), free(X), def(X,Y).

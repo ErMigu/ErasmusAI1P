@@ -15,7 +15,6 @@ private:
     //Common
     std::vector<std::string> arg;
     std::vector<std::vector<std::string>> att;
-    int typeOfProblem=0;
 
     //To work with
     std::vector<bool> used;
@@ -40,7 +39,7 @@ public:
     void ej3();
     void printStableSets();
 
-    void ej4();
+    void ej5();
     void printPreferredSets();
 };
 
