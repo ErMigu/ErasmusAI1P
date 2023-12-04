@@ -40,46 +40,7 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    switch (std::atoi(argv[1])) {
-        case 1: //SON LOS QUE NO SE ATACAN ENTRE ESE CONJUNTO
-            std::cout << "Program 1: Given an argumentation framework (AF), Program 1 computes the conflict-free sets of AF." << std::endl;
-            myArg.ej1();
-            myArg.printCfSets();
-            break;
+    myProgram.ej5();
 
-        case 2:
-            std::cout << "Program 2: Given an argumentation framework (AF), Program 2 computes the admissible sets of AF." << std::endl;
-            myArg.ej1();
-            myArg.ej2();
-            myArg.printAdmissibleSets();
-            break;
-
-        case 3:
-            std::cout << "Program 3: Given an argumentation framework (AF), Program 3 computes the stable extensions of AF." << std::endl;
-            myArg.ej1();
-            myArg.ej2();
-            myArg.ej3();
-            myArg.printStableSets();
-            break;
-
-        case 4:
-            std::cout << "Program 4: Given an argumentation framework (AF), Program 4 computes the preferred extensions of AF." << std::endl;
-            myArg.ej1();
-            myArg.ej2();
-            myArg.ej4();
-            myArg.printPreferredSets();
-            break;
-
-        case 5:
-            std::cout << "Program 5: Implement a program/solver that computes the preferred semantics using your favorite programming language." << std::endl;
-            myProgram.ej5();
-            break;
-
-        default:
-            std::cout << "El primer argumento no es 1, 2, 3, 4 ni 5." << std::endl;
-            break;
-
-
-    }
     return 0;
 }
