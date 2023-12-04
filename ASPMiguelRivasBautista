@@ -69,7 +69,7 @@ free(X):- att(X,Y), in(X), in(Y).
 def(X, Y) :- in(Z), att(Z,Y), arg(X).
 
 %THERE IS NOTHING LEFT NOT IN SOLUTION SET es decir no hay elementos que puedan entrar y no hayan entrado
-:- not in(X), free(X), def(X,Y), arg(Y), arg(X).
+:- arg(X), not in(X), att(Y, X), free(X), def(X,Y).
 
 //---------------------------------
 
