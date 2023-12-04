@@ -25,15 +25,19 @@ int main(int argc, char* argv[]) {
     myArg.readArg(argc, argv);
     myArg.printArg();
 
+    std::cout<<"CF SETS: "<<std::endl;
     myArg.ej1(); //fill the ConflictFree
     myArg.printCfSets();
     std::cout<<std::endl;std::cout<<std::endl;
+    std::cout<<"ADMISSIBLE SETS: "<<std::endl;
     myArg.ej2(); //fill the Admissible
     myArg.printAdmissibleSets();
     std::cout<<std::endl;std::cout<<std::endl;
+    std::cout<<"STABLE EXTS: "<<std::endl;
     myArg.ej3(); //fill the Stable
     myArg.printStableSets();
     std::cout<<std::endl;std::cout<<std::endl;
+    std::cout<<"PREFERRED EXTS: "<<std::endl;
     myArg.ej5(); //fill the Preferred
     myArg.printPreferredSets();
     std::cout<<std::endl;std::cout<<std::endl;
