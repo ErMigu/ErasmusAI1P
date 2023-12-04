@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include "Argumentation.h"
+#include <chrono>
 
 /**ARG PRINT**/
 void printArg(int argc, char* argv[]){
@@ -28,16 +29,17 @@ int main(int argc, char* argv[]) {
 
     Argumentation myArg;
     myArg.readArg(argc, argv);
-    myArg.printArg();
+    //myArg.printArg();
 
+    auto start_time = std::chrono::high_resolution_clock::now();
     std::cout<<"CF SETS: "<<std::endl;
     myArg.ej1(); //fill the ConflictFree
-    myArg.printCfSets();
+    //myArg.printCfSets();
     std::cout<<std::endl;std::cout<<std::endl;
 
     std::cout<<"ADMISSIBLE SETS: "<<std::endl;
     myArg.ej2(); //fill the Admissible
-    myArg.printAdmissibleSets();
+    //myArg.printAdmissibleSets();
     std::cout<<std::endl;std::cout<<std::endl;
 
     std::cout<<"STABLE EXTS: "<<std::endl;
@@ -47,8 +49,13 @@ int main(int argc, char* argv[]) {
 
     std::cout<<"PREFERRED EXTS: "<<std::endl;
     myArg.ej5(); //fill the Preferred
+    auto end_time = std::chrono::high_resolution_clock::now();
+
     myArg.printPreferredSets();
     std::cout<<std::endl;std::cout<<std::endl;
+
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
+    std::cout << "Time: " << duration.count() << " ms" << std::endl;
 
     return 0;
 }

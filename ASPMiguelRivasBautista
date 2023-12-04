@@ -59,25 +59,4 @@ attNS(X) :- in(Y), att(Y, X).
 //---------------------------------
 
 4-Preferred Extensions (Find maximal admissible sets) MAAAAL
-% INPUTS
-arg(a). arg(b). arg(c). arg(d). arg(e).
-att(a, b). att(b, c). att(c, a). att(d,e).
-
-%GEN SETS
-{ in(X) : arg(X) }.
-
-%FOR EVERY X,Y IN THE ARG
-:- free(X).
-free(X):- att(X,Y), in(X), in(Y).
-
-%EVERY ATT IS DEFENDED BY SOMEONE OF THE SET
-:- in(X), att(Y, X), not def(X, Y).
-def(X, Y) :- in(Z), att(Z,Y), arg(X).
-
-%THERE IS NOTHING LEFT NOT IN SOLUTION SET es decir no hay elementos que puedan entrar y no hayan entrado
-:- arg(X), not in(X), not attacked(X).
-attacked(X) :- in(Y), att(Y, X).
-
-#show in/1.
-
 //---------------------------------
