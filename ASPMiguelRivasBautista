@@ -10,6 +10,8 @@ att(a, b). att(b, a). att(a,d).
 :- free(X).
 free(X):- att(X,Y), in(X), in(Y).
 
+#show in/1.
+
 //---------------------------------
 
 2-Admissible Sets (Find conflict-free sets where each argument is defended against attackers)
@@ -27,6 +29,8 @@ free(X):- att(X,Y), in(X), in(Y).
 %EVERY ATT IS DEFENDED BY SOMEONE OF THE SET
 :- in(X), att(Y, X), not def(X, Y).
 def(X, Y) :- in(Z), att(Z,Y), arg(X).
+
+#show in/1.
 
 //---------------------------------
 
@@ -48,7 +52,9 @@ def(X, Y) :- in(Z), att(Z,Y), arg(X).
 
 %ATT ALL ARGUMENTS NOT IN ARE ATT BY SOMEONE IN
 :- arg(X), not in(X), not attNS(X).
-attNS(X) :- arg(X), not in(X), in(Y), att(Y, X).
+attNS(X) :- in(Y), att(Y, X).
+
+#show in/1.
 
 //---------------------------------
 
@@ -69,18 +75,9 @@ free(X):- att(X,Y), in(X), in(Y).
 def(X, Y) :- in(Z), att(Z,Y), arg(X).
 
 %THERE IS NOTHING LEFT NOT IN SOLUTION SET es decir no hay elementos que puedan entrar y no hayan entrado
-:- arg(X), not in(X), att(Y, X), free(X), def(X,Y).
+:- arg(X), not in(X), not attacked(X).
+attacked(X) :- in(Y), att(Y, X).
+
+#show in/1.
 
 //---------------------------------
-
-PROPUESTA PARA LA FREECONFLICT
-%in(X) :- not att(X, Y), not att(Y, X), in(Y).
-
-PROPUESTA PARA LAS DEFENSAS
-%in(X) :- att(Z,X), att(Y,Z), in(Y).
-
-PROPUESTA ATT A LOS QUE NO ESTAN EN EL SET POR UNO DEL SET MINIMO
-%not in(X) :- att(Y,X), in(Y).
-
-PROPUESTA MAXIMAL
-:- not in(X), free(X), def(X,Y).

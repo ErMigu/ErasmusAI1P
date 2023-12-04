@@ -15,8 +15,13 @@ void printArg(int argc, char* argv[]){
 
 /**USING RULES**/
 //-> Argumentation sintax -> NUMERODEPROBLEMA arg(a) arg(b) arg(..) att(a,b) att(b,...)
-//./erasmusAI 5 "arg(A1)" "arg(A2)" "arg(A3)" "arg(A4)" "att(A1,A2)" "att(A2,A1)" "att(A1,A4)"
-//PONER SIEMPRE EL NUMERO 5, se hacen todos en cascada
+//./erasmusAI "arg(a)" "arg(b)" "arg(c)" "arg(d)" "arg(e)" "arg(f)" "att(a,b)" "att(b,a)" "att(a,d)" "att(a,e)" "att(c,e)"
+//./erasmusAI "arg(a)" "arg(b)" "arg(c)" "arg(d)" "arg(e)" "arg(f)" "arg(g)" "arg(h)" "arg(i)" "arg(j)" \
+"att(a,b)" "att(b,c)" "att(c,d)" "att(d,e)" "att(e,f)" \
+"att(f,g)" "att(g,h)" "att(h,i)" "att(i,j)" "att(j,a)" \
+"att(a,d)" "att(c,e)" "att(e,g)" "att(g,i)" "att(b,h)" \
+"att(d,f)" "att(f,h)" "att(h,j)" "att(j,b)" "att(b,e)"
+
 
 int main(int argc, char* argv[]) {
     printArg(argc, argv);

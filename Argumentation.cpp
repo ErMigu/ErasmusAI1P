@@ -152,33 +152,31 @@ void Argumentation::printCfSets(){
 void Argumentation::ej2() {
     bool cumple;
     for (int i = 0; i < cfsets.size(); ++i) { //V set
-        cumple=true;
+        bool cumple=true;
         for (int j = 0; j < cfsets[i].size(); ++j) { //V elemento del set
-            bool atacado=false;
             std::string por;
             for (int k = 0; k < att.size(); ++k) { //V att
+                bool atacado=false;
                 if(att[k][1]==cfsets[i][j]){
                     atacado=true;
                     por=att[k][0];
-                    break;
                 }
-            }
-            if(atacado==true){ //si es atacado hay q ver si es defendido por alguien del conjunto
-                bool defendido=false;
-                for (int k = 0; k < cfsets[i].size(); ++k) { //V conjunto
-                    for (int l = 0; l < att.size(); ++l) {
-                        if(att[l][0]==cfsets[i][k] and att[l][1]==por){ //si lo encuentro
-                            defendido=true;
+                if(atacado==true){ //si es atacado hay q ver si es defendido por alguien del conjunto
+                    bool defendido=false;
+                    for (int l = 0; l < cfsets[i].size(); ++l) { //existe en el conjunto
+                        for (int m = 0; m < att.size(); ++m) {   //alguien que lo defienda
+                            if(att[m][0]==cfsets[i][l] and att[m][1]==por){ //si lo encuentro
+                                defendido=true;
+                                break;
+                            }
+                        }
+                        if(defendido==true){ //si es true, he encontrado para ese
                             break;
                         }
                     }
-                    if(defendido==true){
-                        break;
+                    if(defendido==false){
+                        cumple=false;
                     }
-                }
-                if(defendido==false){
-                    cumple=false;
-                    break;
                 }
             }
         }
