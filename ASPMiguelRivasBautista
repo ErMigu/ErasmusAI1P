@@ -59,4 +59,36 @@ attNS(X) :- in(Y), att(Y, X).
 //---------------------------------
 
 4-Preferred Extensions (Find maximal admissible sets) MAAAAL
+% INPUTS
+arg(a). arg(b). arg(c). arg(d). arg(e).
+att(a, b). att(b, c). att(c, a). att(d, e).
+
+% GENERATE SETS
+{ in(X) : arg(X) }.
+
+% Un argumento X es atacado si hay algún argumento Y en el conjunto tal que Y ataca a X.
+att(X) :- in(Y), att(Y, X).
+
+% Un argumento X es defendido si para cada argumento Y que lo ataca, hay algún argumento Z en el conjunto que ataca a Y.
+def(X) :- arg(X), not undef(X).
+undef(X) :- att(Y, X), not counteratt(Y).
+counteratt(Y) :- att(Z, Y), in(Z).
+
+% Un conjunto es un preferred set si cada argumento en el conjunto es defendido.
+:- in(X), not def(X).
+
+% Se evita incluir argumentos atacados en el conjunto.
+:- in(X), att(X).
+
+% Asegurar que el conjunto no esté vacío.
+:- not non_empty_set.
+non_empty_set :- in(_).
+
+% Se busca maximizar los argumentos en el conjunto.
+#maximize { 1@1, X : in(X) }.
+
+% Mostrar solo las soluciones que nos interesan.
+#show in/1.
+
+
 //---------------------------------

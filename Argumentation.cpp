@@ -102,7 +102,6 @@ void Argumentation::isCF(){
         }
     }
 
-
     if(setFound==false){ //check if is CF
         bool CF=true;
         for(int i=0; i<att.size(); i++){ //V ATAQUE

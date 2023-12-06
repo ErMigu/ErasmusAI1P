@@ -29,17 +29,17 @@ int main(int argc, char* argv[]) {
 
     Argumentation myArg;
     myArg.readArg(argc, argv);
-    //myArg.printArg();
+    myArg.printArg();
 
     auto start_time = std::chrono::high_resolution_clock::now();
     std::cout<<"CF SETS: "<<std::endl;
     myArg.ej1(); //fill the ConflictFree
-    //myArg.printCfSets();
+    myArg.printCfSets();
     std::cout<<std::endl;std::cout<<std::endl;
 
     std::cout<<"ADMISSIBLE SETS: "<<std::endl;
     myArg.ej2(); //fill the Admissible
-    //myArg.printAdmissibleSets();
+    myArg.printAdmissibleSets();
     std::cout<<std::endl;std::cout<<std::endl;
 
     std::cout<<"STABLE EXTS: "<<std::endl;
