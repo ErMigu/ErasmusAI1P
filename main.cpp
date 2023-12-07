@@ -17,6 +17,7 @@ void printArg(int argc, char* argv[]){
 /**USING RULES**/
 //-> Argumentation sintax -> NUMERODEPROBLEMA arg(a) arg(b) arg(..) att(a,b) att(b,...)
 //./erasmusAI "arg(a)" "arg(b)" "arg(c)" "arg(d)" "arg(e)" "att(a,b)" "att(b,c)" "att(c,a)" "att(d,e)"
+//./erasmusAI "arg(a)" "arg(b)" "arg(c)" "att(a,b)" "att(b,a)"
 //./erasmusAI "arg(a)" "arg(b)" "arg(c)" "arg(d)" "arg(e)" "arg(f)" "arg(g)" "arg(h)" "arg(i)" "arg(j)" \
 "att(a,b)" "att(b,c)" "att(c,d)" "att(d,e)" "att(e,f)" \
 "att(f,g)" "att(g,h)" "att(h,i)" "att(i,j)" "att(j,a)" \

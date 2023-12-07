@@ -1,12 +1,13 @@
 1-Conflict-Free Sets (Find sets of arguments where no argument attacks another within the set)
-% INPUTS
+
+% INPUTS CHECK
 arg(a). arg(b). arg(c). arg(d). arg(e).
 att(a, b). att(b, c). att(c, a). att(d,e).
 
-%GEN SETS
+%This generation rule is part of the guessing process, generating sets in(X) for all possible arguments X
 { in(X) : arg(X) }.
 
-%FOR EVERY X,Y IN THE ARG
+%Checks and filter that from each X and Y from in(), X can not attack Y
 :- free(X).
 free(X):- att(X,Y), in(X), in(Y).
 
@@ -15,19 +16,21 @@ free(X):- att(X,Y), in(X), in(Y).
 //---------------------------------
 
 2-Admissible Sets (Find conflict-free sets where each argument is defended against attackers)
-% INPUTS
+
+% INPUTS CHECK
 arg(a). arg(b). arg(c). arg(d). arg(e).
 att(a, b). att(b, c). att(c, a). att(d,e).
 
-%GEN SETS
+%This generation rule is part of the guessing process, generating sets in(X) for all possible arguments X
 { in(X) : arg(X) }.
 
-%FOR EVERY X,Y IN THE ARG
+%Checks and filter that from each X and Y from in(), X can not attack Y
 :- free(X).
 free(X):- att(X,Y), in(X), in(Y).
 
-%EVERY ATT IS DEFENDED BY SOMEONE OF THE SET
+%Checks and filter that it is impossible to have an element X in in()
 :- in(X), att(Y, X), not def(X, Y).
+%If it is attacked and there is no other element within the set that defends it
 def(X, Y) :- in(Z), att(Z,Y), arg(X).
 
 #show in/1.
@@ -35,60 +38,57 @@ def(X, Y) :- in(Z), att(Z,Y), arg(X).
 //---------------------------------
 
 3-Stable Extensions (Find admissible sets that attack every argument not in the set)
-% INPUTS
+
+% INPUTS CHECK
 arg(a). arg(b). arg(c). arg(d). arg(e).
 att(a, b). att(b, c). att(c, a). att(d,e).
 
-%GEN SETS
+%This generation rule is part of the guessing process, generating sets in(X) for all possible arguments X
 { in(X) : arg(X) }.
 
-%FOR EVERY X,Y IN THE ARG
+%Checks and filter that from each X and Y from in(), X can not attack Y
 :- free(X).
 free(X):- att(X,Y), in(X), in(Y).
 
-%EVERY ATT IS DEFENDED BY SOMEONE OF THE SET
+%Checks and filter that it is impossible to have an element X in in()
 :- in(X), att(Y, X), not def(X, Y).
+%If it is attacked and there is no other element within the set that defends it
 def(X, Y) :- in(Z), att(Z,Y), arg(X).
 
-%ATT ALL ARGUMENTS NOT IN ARE ATT BY SOMEONE IN
+%Checks and filter that every element NOT in in()
 :- arg(X), not in(X), not attNS(X).
+%Has someone in in() that attacks him
 attNS(X) :- in(Y), att(Y, X).
 
 #show in/1.
 
 //---------------------------------
 
-4-Preferred Extensions (Find maximal admissible sets) MAAAAL
-% INPUTS
-arg(a). arg(b). arg(c). arg(d). arg(e).
-att(a, b). att(b, c). att(c, a). att(d, e).
+4-Preferred Extensions (Find maximal admissible sets)
 
-% GENERATE SETS
+% INPUTS CHECK
+arg(a). arg(b). arg(c). arg(d). arg(e).
+att(a, b). att(b, c). att(c, a). att(d,e).
+
+%This generation rule is part of the guessing process, generating sets in(X) for all possible arguments X
 { in(X) : arg(X) }.
 
-% Un argumento X es atacado si hay algún argumento Y en el conjunto tal que Y ataca a X.
-att(X) :- in(Y), att(Y, X).
+%Checks and filter that from each X and Y from in(), X can not attack Y
+:- free(X).
+free(X):- att(X,Y), in(X), in(Y).
 
-% Un argumento X es defendido si para cada argumento Y que lo ataca, hay algún argumento Z en el conjunto que ataca a Y.
-def(X) :- arg(X), not undef(X).
-undef(X) :- att(Y, X), not counteratt(Y).
-counteratt(Y) :- att(Z, Y), in(Z).
+%Checks and filter that it is impossible to have an element X in in()
+:- in(X), att(Y, X), not def(X, Y).
+%If it is attacked and there is no other element within the set that defends it
+def(X, Y) :- in(Z), att(Z,Y), arg(X).
 
-% Un conjunto es un preferred set si cada argumento en el conjunto es defendido.
-:- in(X), not def(X).
-
-% Se evita incluir argumentos atacados en el conjunto.
-:- in(X), att(X).
-
-% Asegurar que el conjunto no esté vacío.
+%Checks that there is no empty sets
 :- not non_empty_set.
 non_empty_set :- in(_).
 
-% Se busca maximizar los argumentos en el conjunto.
+%Takes the maximal sets
 #maximize { 1@1, X : in(X) }.
 
-% Mostrar solo las soluciones que nos interesan.
 #show in/1.
-
 
 //---------------------------------
